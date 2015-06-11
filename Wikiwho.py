@@ -519,7 +519,6 @@ def analyseWordsInSentences(unmatched_sentences_curr, unmatched_sentences_prev, 
 
 def printRevision(revision):
 
-    print "Printing authorhship for revision: ", revision.wikipedia_id
     text = []
     authors = []
     for hash_paragraph in revision.ordered_paragraphs:
@@ -540,7 +539,7 @@ def printRevision(revision):
                 #print word
                 #text = text + ' ' + unicode(word.value,'utf-8') + "@@" + str(word.revision) 
                 text.append(word.value)
-                authors.append(word.revision)
+                authors.append(word.author_name)
     print text
     print authors
 
@@ -587,11 +586,6 @@ def main(my_argv):
 if __name__ == '__main__':
 
     (file_name, revision) = main(argv[1:])
-
-    print "Calculating authorship for:", file_name 
-    time1 = time()
-    (revisions, ordered_revisions) = analyseArticle(file_name)
-    time2 = time()
     
     #pos = file_name.rfind("/")
     #print file_name[pos+1: len(file_name)-len(".xml")], time2-time1
@@ -605,6 +599,4 @@ if __name__ == '__main__':
                 printRevision(revisions[rev])
             else:
                 print "Revision ", rev, "was detected as vandalism."
-        
-    print "Execution time:", time2-time1 
     
